@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios";
 
 import Articles from '../components/Articles';
+import CustomForm from "../components/Form";
 
 
 function ArticleList() {
@@ -13,11 +14,17 @@ function ArticleList() {
             .then(response => {
                 const allArticles = response.data;
                 setArticles(allArticles);
+                console.log(articles);
             });
-    }, [setArticles]);
+    }, []);
 
     return (
-        <Articles data={articles}/>
+        <>
+            <Articles data={articles}/>
+            <br/>
+            <h2>Создать статью</h2>
+            <CustomForm requestType="post" articleID={null} btnText="Добавить"/>
+        </>
     )
 }
 
