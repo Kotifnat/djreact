@@ -1,7 +1,6 @@
 import React from 'react';
 import {Form, Input, Button} from 'antd';
 
-import axios from 'axios';
 
 const CustomForm = (props) => {
     const [form] = Form.useForm();
@@ -13,8 +12,10 @@ const CustomForm = (props) => {
         switch (requestType) {
             case 'post':
                 props.addArticle(event)
+                break;
             case 'put':
                 props.updateArticle(event)
+                break;
         }
     }
 

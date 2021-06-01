@@ -16,7 +16,7 @@ function ArticleDetail(props) {
                 const article = response.data;
                 setArticle(article);
             });
-    }, [setArticle]);
+    }, [article]);
 
     function updateArticle(article) {
         setArticle({

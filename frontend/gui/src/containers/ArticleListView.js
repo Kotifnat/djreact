@@ -15,7 +15,7 @@ function ArticleList() {
                 setArticles(allArticles);
                 console.log(articles);
             });
-    }, []);
+    }, [articles]);
 
     function addArticle(article) {
         setArticles(articles.concat({
