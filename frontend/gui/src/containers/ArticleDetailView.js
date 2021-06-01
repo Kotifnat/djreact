@@ -8,7 +8,7 @@ import CustomForm from '../components/Form';
 function ArticleDetail(props) {
     const [article, setArticle] = useState({});
     let match = useParams();
-    const apiUrl = `http://localhost:8000/api/${match['articleID']}`;
+    const apiUrl = `http://localhost:8000/api/${match['articleID']}/`;
 
     useEffect(() => {
         axios.get(apiUrl)
@@ -17,6 +17,19 @@ function ArticleDetail(props) {
                 setArticle(article);
             });
     }, [setArticle]);
+
+    function updateArticle(article) {
+        setArticle({
+            title: article.title,
+            content: article.content
+        })
+        return axios.put(apiUrl, {
+            title: article.title,
+            content: article.content
+        })
+            .then(response => console.log(response))
+            .catch(error => console.error(error))
+    }
 
     const handleDelete = (event) => {
         axios.delete(apiUrl);
@@ -29,7 +42,7 @@ function ArticleDetail(props) {
                 <p>{article.content}</p>
             </Card>
             <h2>Изменить статью</h2>
-            <CustomForm requestType='put' articleID={match['articleID']} btnText='Обновить'/>
+            <CustomForm updateArticle={updateArticle} requestType='put' articleID={match['articleID']} btnText='Обновить'/>
             <form onSubmit={handleDelete}>
                 <Button type="danger" htmlType="submit">Удалить</Button>
             </form>

@@ -7,9 +7,8 @@ import CustomForm from "../components/Form";
 
 function ArticleList() {
     const [articles, setArticles] = useState([]);
-
+    const apiUrl = 'http://localhost:8000/api/'
     useEffect(() => {
-        const apiUrl = 'http://localhost:8000/api/'
         axios.get(apiUrl)
             .then(response => {
                 const allArticles = response.data;
@@ -18,12 +17,25 @@ function ArticleList() {
             });
     }, []);
 
+    function addArticle(article) {
+        setArticles(articles.concat({
+            title: article.title,
+            content: article.content
+        }))
+        axios.post(apiUrl, {
+            title: article.title,
+            content: article.content
+        })
+            .then(response => console.log(response))
+            .catch(error => console.error(error))
+    }
+
     return (
         <>
             <Articles data={articles}/>
             <br/>
             <h2>Создать статью</h2>
-            <CustomForm requestType="post" articleID={null} btnText="Добавить"/>
+            <CustomForm addArticle={addArticle} requestType="post" articleID={null} btnText="Добавить"/>
         </>
     )
 }
